@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { Graph, Node } from "@antv/x6";
 import { register } from "@antv/x6-react-shape";
-
+import "./index.scss";
 const NodeComponent = ({ node }: { node: Node }) => {
   const data = node.getData();
 
