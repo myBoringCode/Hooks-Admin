@@ -9,24 +9,24 @@ import Fullscreen from "./components/Fullscreen";
 import "./index.less";
 
 const LayoutHeader = () => {
-	const { Header } = Layout;
+  const { Header } = Layout;
 
-	return (
-		<Header>
-			<div className="header-lf">
-				<CollapseIcon />
-				<BreadcrumbNav />
-			</div>
-			<div className="header-ri">
-				<AssemblySize />
-				<Language />
-				<Theme />
-				<Fullscreen />
-				<span className="username">Hooks</span>
-				<AvatarIcon />
-			</div>
-		</Header>
-	);
+  return (
+    <Header>
+      <div className="header-lf">
+        <CollapseIcon />
+        <BreadcrumbNav />
+      </div>
+      <div className="header-ri">
+        <AssemblySize />
+        <Language />
+        <Theme />
+        <Fullscreen />
+        <span className="username">Hooks</span>
+        <AvatarIcon />
+      </div>
+    </Header>
+  );
 };
 
 export default LayoutHeader;

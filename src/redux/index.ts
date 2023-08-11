@@ -12,17 +12,17 @@ import breadcrumb from "./modules/breadcrumb/reducer";
 
 // 创建reducer(拆分reducer)
 const reducer = combineReducers({
-	global,
-	menu,
-	tabs,
-	auth,
-	breadcrumb
+  global,
+  menu,
+  tabs,
+  auth,
+  breadcrumb
 });
 
 // redux 持久化配置
 const persistConfig = {
-	key: "redux-state",
-	storage: storage
+  key: "redux-state",
+  storage: storage
 };
 const persistReducerConfig = persistReducer(persistConfig, reducer);
 

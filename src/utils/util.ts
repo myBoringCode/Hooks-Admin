@@ -6,12 +6,12 @@ import { RouteObject } from "@/routers/interface";
  * @return string
  */
 export const localGet = (key: string) => {
-	const value = window.localStorage.getItem(key);
-	try {
-		return JSON.parse(window.localStorage.getItem(key) as string);
-	} catch (error) {
-		return value;
-	}
+  const value = window.localStorage.getItem(key);
+  try {
+    return JSON.parse(window.localStorage.getItem(key) as string);
+  } catch (error) {
+    return value;
+  }
 };
 
 /**
@@ -21,7 +21,7 @@ export const localGet = (key: string) => {
  * @return void
  */
 export const localSet = (key: string, value: any) => {
-	window.localStorage.setItem(key, JSON.stringify(value));
+  window.localStorage.setItem(key, JSON.stringify(value));
 };
 
 /**
@@ -30,7 +30,7 @@ export const localSet = (key: string, value: any) => {
  * @return void
  */
 export const localRemove = (key: string) => {
-	window.localStorage.removeItem(key);
+  window.localStorage.removeItem(key);
 };
 
 /**
@@ -38,7 +38,7 @@ export const localRemove = (key: string) => {
  * @return void
  */
 export const localClear = () => {
-	window.localStorage.clear();
+  window.localStorage.clear();
 };
 
 /**
@@ -46,14 +46,14 @@ export const localClear = () => {
  * @return string
  */
 export const getBrowserLang = () => {
-	let browserLang = navigator.language ? navigator.language : navigator.browserLanguage;
-	let defaultBrowserLang = "";
-	if (browserLang.toLowerCase() === "cn" || browserLang.toLowerCase() === "zh" || browserLang.toLowerCase() === "zh-cn") {
-		defaultBrowserLang = "zh";
-	} else {
-		defaultBrowserLang = "en";
-	}
-	return defaultBrowserLang;
+  let browserLang = navigator.language ? navigator.language : navigator.browserLanguage;
+  let defaultBrowserLang = "";
+  if (browserLang.toLowerCase() === "cn" || browserLang.toLowerCase() === "zh" || browserLang.toLowerCase() === "zh-cn") {
+    defaultBrowserLang = "zh";
+  } else {
+    defaultBrowserLang = "en";
+  }
+  return defaultBrowserLang;
 };
 
 /**
@@ -62,14 +62,14 @@ export const getBrowserLang = () => {
  * @returns array
  */
 export const getOpenKeys = (path: string) => {
-	let newStr: string = "";
-	let newArr: any[] = [];
-	let arr = path.split("/").map(i => "/" + i);
-	for (let i = 1; i < arr.length - 1; i++) {
-		newStr += arr[i];
-		newArr.push(newStr);
-	}
-	return newArr;
+  let newStr: string = "";
+  let newArr: any[] = [];
+  let arr = path.split("/").map(i => "/" + i);
+  for (let i = 1; i < arr.length - 1; i++) {
+    newStr += arr[i];
+    newArr.push(newStr);
+  }
+  return newArr;
 };
 
 /**
@@ -79,15 +79,15 @@ export const getOpenKeys = (path: string) => {
  * @returns array
  */
 export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObject => {
-	let result: RouteObject = {};
-	for (let item of routes) {
-		if (item.path === path) return item;
-		if (item.children) {
-			const res = searchRoute(path, item.children);
-			if (Object.keys(res).length) result = res;
-		}
-	}
-	return result;
+  let result: RouteObject = {};
+  for (let item of routes) {
+    if (item.path === path) return item;
+    if (item.children) {
+      const res = searchRoute(path, item.children);
+      if (Object.keys(res).length) result = res;
+    }
+  }
+  return result;
 };
 
 /**
@@ -97,31 +97,31 @@ export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObje
  * @returns array
  */
 export const getBreadcrumbList = (path: string, menuList: Menu.MenuOptions[]) => {
-	let tempPath: any[] = [];
-	try {
-		const getNodePath = (node: Menu.MenuOptions) => {
-			tempPath.push(node);
-			// 找到符合条件的节点，通过throw终止掉递归
-			if (node.path === path) {
-				throw new Error("GOT IT!");
-			}
-			if (node.children && node.children.length > 0) {
-				for (let i = 0; i < node.children.length; i++) {
-					getNodePath(node.children[i]);
-				}
-				// 当前节点的子节点遍历完依旧没找到，则删除路径中的该节点
-				tempPath.pop();
-			} else {
-				// 找到叶子节点时，删除路径当中的该叶子节点
-				tempPath.pop();
-			}
-		};
-		for (let i = 0; i < menuList.length; i++) {
-			getNodePath(menuList[i]);
-		}
-	} catch (e) {
-		return tempPath.map(item => item.title);
-	}
+  let tempPath: any[] = [];
+  try {
+    const getNodePath = (node: Menu.MenuOptions) => {
+      tempPath.push(node);
+      // 找到符合条件的节点，通过throw终止掉递归
+      if (node.path === path) {
+        throw new Error("GOT IT!");
+      }
+      if (node.children && node.children.length > 0) {
+        for (let i = 0; i < node.children.length; i++) {
+          getNodePath(node.children[i]);
+        }
+        // 当前节点的子节点遍历完依旧没找到，则删除路径中的该节点
+        tempPath.pop();
+      } else {
+        // 找到叶子节点时，删除路径当中的该叶子节点
+        tempPath.pop();
+      }
+    };
+    for (let i = 0; i < menuList.length; i++) {
+      getNodePath(menuList[i]);
+    }
+  } catch (e) {
+    return tempPath.map(item => item.title);
+  }
 };
 
 /**
@@ -130,14 +130,14 @@ export const getBreadcrumbList = (path: string, menuList: Menu.MenuOptions[]) =>
  * @returns object
  */
 export const findAllBreadcrumb = (menuList: Menu.MenuOptions[]): { [key: string]: any } => {
-	let handleBreadcrumbList: any = {};
-	const loop = (menuItem: Menu.MenuOptions) => {
-		// 下面判断代码解释 *** !item?.children?.length   ==>   (item.children && item.children.length > 0)
-		if (menuItem?.children?.length) menuItem.children.forEach(item => loop(item));
-		else handleBreadcrumbList[menuItem.path] = getBreadcrumbList(menuItem.path, menuList);
-	};
-	menuList.forEach(item => loop(item));
-	return handleBreadcrumbList;
+  let handleBreadcrumbList: any = {};
+  const loop = (menuItem: Menu.MenuOptions) => {
+    // 下面判断代码解释 *** !item?.children?.length   ==>   (item.children && item.children.length > 0)
+    if (menuItem?.children?.length) menuItem.children.forEach(item => loop(item));
+    else handleBreadcrumbList[menuItem.path] = getBreadcrumbList(menuItem.path, menuList);
+  };
+  menuList.forEach(item => loop(item));
+  return handleBreadcrumbList;
 };
 
 /**
@@ -147,11 +147,11 @@ export const findAllBreadcrumb = (menuList: Menu.MenuOptions[]): { [key: string]
  * @return array
  */
 export function handleRouter(routerList: Menu.MenuOptions[], newArr: string[] = []) {
-	routerList.forEach((item: Menu.MenuOptions) => {
-		typeof item === "object" && item.path && newArr.push(item.path);
-		item.children && item.children.length && handleRouter(item.children, newArr);
-	});
-	return newArr;
+  routerList.forEach((item: Menu.MenuOptions) => {
+    typeof item === "object" && item.path && newArr.push(item.path);
+    item.children && item.children.length && handleRouter(item.children, newArr);
+  });
+  return newArr;
 }
 
 /**
@@ -160,9 +160,9 @@ export function handleRouter(routerList: Menu.MenuOptions[], newArr: string[] = 
  * @return string
  */
 export const isType = (val: any) => {
-	if (val === null) return "null";
-	if (typeof val !== "object") return typeof val;
-	else return Object.prototype.toString.call(val).slice(8, -1).toLocaleLowerCase();
+  if (val === null) return "null";
+  if (typeof val !== "object") return typeof val;
+  else return Object.prototype.toString.call(val).slice(8, -1).toLocaleLowerCase();
 };
 
 /**
@@ -171,20 +171,20 @@ export const isType = (val: any) => {
  * @return object
  */
 export const deepCopy = <T>(obj: any): T => {
-	let newObj: any;
-	try {
-		newObj = obj.push ? [] : {};
-	} catch (error) {
-		newObj = {};
-	}
-	for (let attr in obj) {
-		if (typeof obj[attr] === "object") {
-			newObj[attr] = deepCopy(obj[attr]);
-		} else {
-			newObj[attr] = obj[attr];
-		}
-	}
-	return newObj;
+  let newObj: any;
+  try {
+    newObj = obj.push ? [] : {};
+  } catch (error) {
+    newObj = {};
+  }
+  for (let attr in obj) {
+    if (typeof obj[attr] === "object") {
+      newObj[attr] = deepCopy(obj[attr]);
+    } else {
+      newObj[attr] = obj[attr];
+    }
+  }
+  return newObj;
 };
 
 /**
@@ -194,6 +194,6 @@ export const deepCopy = <T>(obj: any): T => {
  * @return number
  */
 export function randomNum(min: number, max: number): number {
-	let num = Math.floor(Math.random() * (min - max) + max);
-	return num;
+  let num = Math.floor(Math.random() * (min - max) + max);
+  return num;
 }
