@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { Graph, Node } from "@antv/x6";
 import { register } from "@antv/x6-react-shape";
 import "./index.less";
@@ -23,7 +23,8 @@ register({
 
 function Example() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
+  const countRef = useRef(0);
 
   useEffect(() => {
     let graph = new Graph({
@@ -42,9 +43,10 @@ function Example() {
     });
 
     const update = () => {
-      console.log("update");
-      node.setData({ name: `逻辑回归 ${count}` });
-      setCount(c => c + 1);
+      console.log("update", countRef.current);
+      node.setData({ name: `逻辑回归 ${countRef.current}` });
+      // setCount(c => c + 1);
+      countRef.current += 1;
       setTimeout(update, 1000);
     };
 
