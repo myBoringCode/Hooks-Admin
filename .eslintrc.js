@@ -26,14 +26,15 @@ module.exports = {
 	plugins: ["react", "@typescript-eslint", "react-hooks", "prettier"],
 	/* 继承某些已有的规则 */
 	extends: [
-		"eslint:recommended",
-		"plugin:react/recommended",
-		"plugin:@typescript-eslint/recommended",
-		"plugin:react/jsx-runtime",
-		"plugin:react-hooks/recommended",
-		"prettier",
-		"plugin:prettier/recommended"
-	],
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/jsx-runtime",
+        "plugin:react-hooks/recommended",
+        "prettier",
+        "plugin:prettier/recommended",
+        "plugin:storybook/recommended"
+    ],
 	/*
 	 * "off" 或 0    ==>  关闭规则
 	 * "warn" 或 1   ==>  打开的规则作为警告（不影响代码执行）
@@ -64,6 +65,7 @@ module.exports = {
 
 		// react (https://github.com/jsx-eslint/eslint-plugin-react)
 		"react-hooks/rules-of-hooks": "off",
-		"react-hooks/exhaustive-deps": "off"
+		"react-hooks/exhaustive-deps": "off",
+		"react/no-unescaped-entities": "off"
 	}
 };

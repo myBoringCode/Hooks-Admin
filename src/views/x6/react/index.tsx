@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { Graph, Node } from "@antv/x6";
 import { register } from "@antv/x6-react-shape";
-import "./index.scss";
+import "./index.less";
 const NodeComponent = ({ node }: { node: Node }) => {
   const data = node.getData();
 
@@ -42,6 +42,7 @@ function Example() {
     });
 
     const update = () => {
+      console.log("update");
       node.setData({ name: `逻辑回归 ${count}` });
       setCount(c => c + 1);
       setTimeout(update, 1000);
