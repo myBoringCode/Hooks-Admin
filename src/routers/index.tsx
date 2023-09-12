@@ -1,9 +1,9 @@
-import { Navigate, useRoutes } from "react-router-dom";
+import { Navigate, useRoutes, RouteObject as DOMRouteObject } from "react-router-dom";
 import { RouteObject } from "@/routers/interface";
 import Login from "@/views/login/index";
 
 // * 导入所有router
-const metaRouters = import.meta.globEager("./modules/*.tsx");
+const metaRouters = import.meta.glob("./modules/*.tsx", { eager: true });
 
 // * 处理路由
 export const routerArray: RouteObject[] = [];
@@ -36,7 +36,7 @@ export const rootRouter: RouteObject[] = [
 ];
 
 const Router = () => {
-  const routes = useRoutes(rootRouter);
+  const routes = useRoutes(rootRouter as DOMRouteObject[]);
   return routes;
 };
 
